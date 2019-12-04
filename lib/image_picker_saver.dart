@@ -71,7 +71,8 @@ class ImagePickerSaver {
     return path == null ? null : new File(path);
   }
 
-  static Future<String> saveFile({@required Uint8List fileData, String title, String description}) async {
+  static Future<String> saveFile(
+      {@required Uint8List fileData, String title, String description}) async {
     assert(fileData != null);
 
     String filePath = await _channel.invokeMethod(
@@ -84,9 +85,25 @@ class ImagePickerSaver {
     );
     debugPrint("saved filePath:" + filePath);
     //process ios return filePath
-    if(filePath.startsWith("file://")){
-      filePath=filePath.replaceAll("file://", "");
+    if (filePath.startsWith("file://")) {
+      filePath = filePath.replaceAll("file://", "");
     }
-    return  filePath;
+    return filePath;
+  }
+
+  static Future<String> saveVideo(
+      {String path,String title, String description}) async {
+    String filePath = await _channel.invokeMethod(
+      'saveVideo',
+      <String, dynamic>{
+        'path':path,
+        'title': title,
+        'description': description
+      },
+    );
+    if (filePath.startsWith("file://")) {
+      filePath = filePath.replaceAll("file://", "");
+    }
+    return filePath;
   }
 }
