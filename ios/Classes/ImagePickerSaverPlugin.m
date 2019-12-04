@@ -127,10 +127,27 @@ static const int SOURCE_GALLERY = 1;
             }];
         }
         //_result(fileName);
+    }else if ([@"saveVideo" isEqualToString:call.method]) {
+        _result = result;
+        _arguments = call.arguments;
+        
+        NSString * videoPath = [_arguments objectForKey:@"path"] ;
+        
+        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoPath)) {
+            //保存视频到相簿
+            UISaveVideoAtPathToSavedPhotosAlbum(videoPath, self,
+                   @selector(video:didFinishSavingWithError:contextInfo:), nil);
+            result(@"成功");
+        }
     }
     else {
         result(FlutterMethodNotImplemented);
     }
+}
+- (void)video:(NSString *)videoPath
+        didFinishSavingWithError:(NSError *)error
+  contextInfo:(void *)contextInfo{
+    
 }
 
 -(void)saveImage:(UIImage *)image  {
