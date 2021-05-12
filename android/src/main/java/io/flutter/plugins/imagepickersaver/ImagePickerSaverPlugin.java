@@ -10,12 +10,9 @@ import java.io.File;
 import java.io.IOException;
 
 import androidx.annotation.VisibleForTesting;
-import io.flutter.plugin.common.MethodCall;
-import io.flutter.plugin.common.MethodChannel;
-import io.flutter.plugin.common.PluginRegistry;
 
 
-public class ImagePickerSaverPlugin implements MethodChannel.MethodCallHandler {
+public class ImagePickerSaverPlugin implements FlutterPlugin {
     private static final String CHANNEL = "plugins.flutter.io/image_picker_saver";
 
     private static final int SOURCE_CAMERA = 0;
